@@ -1,0 +1,6 @@
+main          = "krypt0-24"
+region        = "us-east-1"
+vpc_cidr      = "10.0.0.0/16"
+instance_type = "t3.micro"
+key_name      = "krypt0_24_keypair"
+image_id      = "ami-09d3b3274b6c5d4aa"
