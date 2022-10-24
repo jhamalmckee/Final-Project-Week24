@@ -2,9 +2,9 @@
 
 terraform {
   backend "s3" {
-    bucket = "final-project-week24-bucket"
+    bucket = "final-project-week24-v1bucket"
     key    = "state/terraform.tfstate"
-    region = "us-west-2"
+    region = "us-east-1"
   }
 }
 
