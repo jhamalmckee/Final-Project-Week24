@@ -1,6 +1,5 @@
 variable "main" {}
 variable "vpc_cidr" {}
-# variable "public_cidr" {}
 variable "instance_type" {}
 variable "image_id" {}
 variable "key_name" {}
