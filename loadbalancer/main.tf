@@ -34,7 +34,7 @@ resource "aws_lb_target_group" "week24_target_group" {
 
 # LOADBALANCER LISTENER
 resource "aws_lb_listener" "week24_loadbalancer_listener" {
-  load_balancer_arn = aws_lb.krypt0_24_loadbalancer.arn
+  load_balancer_arn = aws_lb.week24_loadbalancer.arn
   port              = var.listener_port
   protocol          = var.listener_protocol
 
@@ -43,6 +43,3 @@ resource "aws_lb_listener" "week24_loadbalancer_listener" {
     target_group_arn = aws_lb_target_group.week24_target_group.arn
   }
 }
-
-
-
