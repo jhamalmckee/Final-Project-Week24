@@ -9,7 +9,7 @@ resource "random_shuffle" "az_list" {
 }
 
 # Create VPC
-resource "aws_vpc" "krypt0_24_vpc" {
+resource "aws_vpc" "week24_vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
@@ -24,9 +24,9 @@ resource "aws_vpc" "krypt0_24_vpc" {
 }
 
 # Create Public Subnets
-resource "aws_subnet" "krypt0_24_public_subnet" {
+resource "aws_subnet" "week24_public_subnet" {
   count                   = var.public_subnet_count
-  vpc_id                  = aws_vpc.krypt0_24_vpc.id
+  vpc_id                  = aws_vpc.week24_vpc.id
   cidr_block              = var.public_cidrs[count.index]
   map_public_ip_on_launch = true
   availability_zone       = random_shuffle.az_list.result[count.index]
@@ -37,12 +37,12 @@ resource "aws_subnet" "krypt0_24_public_subnet" {
 }
 
 # Create Public Route Table
-resource "aws_route_table" "krypt0_24_public_rt" {
-  vpc_id = aws_vpc.krypt0_24_vpc.id
+resource "aws_route_table" "week24_public_rt" {
+  vpc_id = aws_vpc.week24_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.krypt0_24_internet_gateway.id
+    gateway_id = aws_internet_gateway.week24_internet_gateway.id
   }
 
   tags = {
@@ -51,8 +51,8 @@ resource "aws_route_table" "krypt0_24_public_rt" {
 }
 
 # Create Internet Gateway
-resource "aws_internet_gateway" "krypt0_24_internet_gateway" {
-  vpc_id = aws_vpc.krypt0_24_vpc.id
+resource "aws_internet_gateway" "week24_internet_gateway" {
+  vpc_id = aws_vpc.week24_vpc.id
 
   tags = {
     Name = "${var.main}-Internet-Gateway"
@@ -64,16 +64,16 @@ resource "aws_internet_gateway" "krypt0_24_internet_gateway" {
 }
 
 # Create Public Route Table Association
-resource "aws_route_table_association" "krypt0_public_association" {
+resource "aws_route_table_association" "week24_public_association" {
   count          = var.public_subnet_count
-  subnet_id      = aws_subnet.krypt0_24_public_subnet.*.id[count.index]
-  route_table_id = aws_route_table.krypt0_24_public_rt.id
+  subnet_id      = aws_subnet.week24_public_subnet.*.id[count.index]
+  route_table_id = aws_route_table.week24_public_rt.id
 }
 
-resource "aws_security_group" "web_sg" {
+resource "aws_security_group" "week24_web_sg" {
   name        = "WebServer Security Group --- HTTP/HTTPS Traffic"
   description = "HTTP/HTTPS Traffic"
-  vpc_id      = aws_vpc.krypt0_24_vpc.id
+  vpc_id      = aws_vpc.week24_vpc.id
 
   ingress {
     from_port   = 80
@@ -109,7 +109,7 @@ resource "aws_security_group" "web_sg" {
 resource "aws_security_group" "loadbalancer-sg" {
   name        = "LoadBalancer Security Group"
   description = "Allows traffic from LB to Web-Tier"
-  vpc_id      = aws_vpc.krypt0_24_vpc.id
+  vpc_id      = aws_vpc.week24_vpc.id
 
   ingress {
     from_port       = 22
@@ -144,7 +144,7 @@ resource "aws_security_group" "loadbalancer-sg" {
 resource "aws_security_group" "bastion-host-sg" {
   name        = "Bastion Host SSH Security Group"
   description = "Allow SSH Traffic from bastion host"
-  vpc_id      = aws_vpc.krypt0_24_vpc.id
+  vpc_id      = aws_vpc.week24_vpc.id
 
   ingress {
     from_port   = 22
