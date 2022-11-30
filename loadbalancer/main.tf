@@ -1,6 +1,6 @@
 #---loadbalancer/main.tf---
 
-resource "aws_lb" "krypt0_24_loadbalancer" {
+resource "aws_lb" "week24_loadbalancer" {
   name               = "${var.main}-APPLICATION-LB"
   internal           = false
   load_balancer_type = "application"
@@ -9,7 +9,7 @@ resource "aws_lb" "krypt0_24_loadbalancer" {
 }
 
 
-resource "aws_lb_target_group" "krypt0_24_target_group" {
+resource "aws_lb_target_group" "week24_target_group" {
     name        = "${var.main}-TARGET-GROUP"
   port        = var.listener_port
   protocol    = var.listener_protocol
@@ -33,14 +33,14 @@ resource "aws_lb_target_group" "krypt0_24_target_group" {
 
 
 # LOADBALANCER LISTENER
-resource "aws_lb_listener" "krypt0_24_loadbalancer_listener" {
+resource "aws_lb_listener" "week24_loadbalancer_listener" {
   load_balancer_arn = aws_lb.krypt0_24_loadbalancer.arn
   port              = var.listener_port
   protocol          = var.listener_protocol
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.krypt0_24_target_group.arn
+    target_group_arn = aws_lb_target_group.week24_target_group.arn
   }
 }
 
