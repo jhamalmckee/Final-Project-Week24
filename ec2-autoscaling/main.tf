@@ -1,6 +1,6 @@
 #---ec2-autoscaling/main.tf---
 
-resource "aws_launch_template" "krypt0-launch-template" {
+resource "aws_launch_template" "week24-launch-template" {
   name                   = "${var.main}-ASG"
   image_id               = var.image_id
   instance_type          = var.instance_type
@@ -8,7 +8,7 @@ resource "aws_launch_template" "krypt0-launch-template" {
   vpc_security_group_ids = [var.web_sg]
 }
 
-resource "aws_autoscaling_group" "krypt0-asg" {
+resource "aws_autoscaling_group" "week24-asg" {
   name                      = "${var.main}-AUTOSCALING_GROUP"
   max_size                  = 3
   min_size                  = 2
@@ -20,7 +20,7 @@ resource "aws_autoscaling_group" "krypt0-asg" {
   target_group_arns         = [var.target_group_arn]
 
   launch_template {
-    id = aws_launch_template.krypt0-launch-template.id
+    id = aws_launch_template.week24-launch-template.id
   }
 }
 
