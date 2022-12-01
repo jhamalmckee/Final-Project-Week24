@@ -1,2 +1,2 @@
-# Final-Project-Week24
-Final-Project-Week24
+# Week 24 Project
+Week 24 Project
