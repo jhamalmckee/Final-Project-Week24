@@ -1,7 +1,7 @@
 #---loadbalancer/main.tf---
 
 resource "aws_lb" "week24_loadbalancer" {
-  name               = "${var.main}-APPLICATION-LB"
+  name               = "week24-APPLICATION-LB"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [var.web_sg]
@@ -10,7 +10,7 @@ resource "aws_lb" "week24_loadbalancer" {
 
 
 resource "aws_lb_target_group" "week24_target_group" {
-    name        = "${var.main}-TARGET-GROUP"
+  name        = "week24-TARGET-GROUP"
   port        = var.listener_port
   protocol    = var.listener_protocol
   target_type = "instance"
