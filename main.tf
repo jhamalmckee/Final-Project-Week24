@@ -2,7 +2,7 @@
 
 terraform {
   backend "s3" {
-    bucket = "week-24-project-bucketz"
+    bucket = "codepipeline-us-east-1-469130070124"
     key    = "state/terraform.tfstate"
     region = "us-east-1"
   }
