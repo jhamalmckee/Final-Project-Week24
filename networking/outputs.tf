@@ -17,5 +17,5 @@ output "private_sg" {
 }
 
 output "web_sg" {
-  value = aws_security_group.web_sg.id
+  value = aws_security_group.week24_web_sg.id
 }
